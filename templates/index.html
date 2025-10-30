@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reiseplan Generator</title>
 </head>
 <body>
-    
+    <h1>🌍 Automatischer Reiseplan</h1>
+
+    <form method="get" action="/reiseplan">
+
+        <label>Reisedauer (Tage):</label><br>
+        <label><input type="radio" name="tage" value="5"> 5</label>
+        <label><input type="radio" name="tage" value="7"> 7</label>
+        <label><input type="radio" name="tage" value="10"> 10</label>
+        <br><br>
+
+        <label for="">Reisethema:</label><br>
+        <label><input type="radio" name="thema" value="kultur"> Kultur</label>
+        <label><input type="radio" name="thema" value="outdoor"> Outdoor</label>
+        <label><input type="radio" name="thema" value="wellness"> Wellness</label>
+        <br><br>
+
+        <label>Route:</label><br>
+        <label><input type="radio" name="route" value="norwegen"> Norwegen</label>
+        <label><input type="radio" name="route" value="schweden"> Schweden</label>
+        <br><br>
+
+        <button type="submit">Reiseplan generieren</button>
+
+    </form>
 </body>
 </html>

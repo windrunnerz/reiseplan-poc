@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reiseplan</title>
+</head>
+<body>
+    <h1>Reiseplan für {{ route }}</h1>
+    <p>Thema: {{ thema }} | Dauer: {{ tage }} Tage</p>
+
+    {% if plan %}
+      {% for tag in plan%}
+        <h3>Tag {{ tag.tag}}</h3>
+        <p>{{ tag.text }}</p>
+      {% endfor %}
+    {% else %}
+      <p>Keine passenden Textbausteine gefunden.</p>
+    {% endif %}
+
+    <button type="button" onclick="window.location.href='/'">⬅️ Neue Eingabe</button>
+</body>
+</html>

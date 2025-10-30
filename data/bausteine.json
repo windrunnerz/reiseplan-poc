@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "route": "norwegen",
+    "thema": "outdoor",
+    "tag": 1,
+    "text": "Anreise nach Oslo und Spaziergang am Hafen"
+  },
+  {
+    "id": 2,
+    "route": "norwegen",
+    "thema": "outdoor",
+    "tag": 2,
+    "text": "Wanderung im Jotunheimen Nationalpark"
+  },
+  {
+    "id": 3,
+    "route": "schweden",
+    "thema": "wellness",
+    "tag": 1,
+    "text": "Ankunft in Stockholm und Entspannung im Spa"
+  },
+  {
+    "id": 4,
+    "route": "schweden",
+    "thema": "wellness",
+    "tag": 2,
+    "text": "Bootstour durch die Schäreninseln"
+  }
+]
