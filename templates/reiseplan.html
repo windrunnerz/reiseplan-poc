@@ -6,18 +6,60 @@
     <title>Reiseplan</title>
 </head>
 <body>
-    <h1>Reiseplan für {{ route }}</h1>
-    <p>Thema: {{ thema }} | Dauer: {{ tage }} Tage</p>
+  <h1>Reiseplan</h1>
+  
+  <p>
+    <strong>Reiseverlauf:</strong>
+    {{ " → ".join(route_chain) | title }}
+    <br>
+    <strong>Reiseart:</strong> {{ reiseart | capitalize }}<br>
+    <strong>Dauer:</strong> {{ tage }} Tage
+  </p>
 
-    {% if plan %}
-      {% for tag in plan%}
-        <h3>Tag {{ tag.tag}}</h3>
-        <p>{{ tag.text }}</p>
-      {% endfor %}
-    {% else %}
-      <p>Keine passenden Textbausteine gefunden.</p>
-    {% endif %}
+  </p>
 
-    <button type="button" onclick="window.location.href='/'">⬅️ Neue Eingabe</button>
+  <hr>
+
+  {% if plan %}
+    {% for abschnitt in plan %}
+      <h3>{{ abschnitt.title }}</h3>
+
+      {% if abschnitt.type == "city" %}
+        <p><em>Ort:</em> {{ abschnitt.ort }}</p>
+      {% elif abschnitt.type.startswith("route") %}
+        <p><em>Von:</em> {{ abschnitt.start_ort }} → <em>Nach:</em> {{ abschnitt.ziel_ort }}</p>
+      {% endif %}
+
+      <p>{{ abschnitt.text }}</p>
+
+      {% if abschnitt.varianten %}
+        <details>
+          <summary><strong>Alternative Routen</strong></summary>
+          {% for v in abschnitt.varianten %}
+            <p><u>{{ v.name }}</u>: {{ v.beschreibung }}</p>
+            {% if v.zwischenstopps %}
+              <ul>
+                {% for z in v.zwischenstopps %}
+                  <li><strong>{{ z.ort }}</strong>: {{ z.highlight }} — {{ z.details }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endfor %}
+        </details>
+      {% endif %}
+
+      {% if abschnitt.image %}
+        <img src="{{ url_for('static', filename='images/' + abschnitt.image) }}" 
+             alt="{{ abschnitt.title }}" width="400">
+      {% endif %}
+
+      <hr>
+    {% endfor %}
+  {% else %}
+    <p>Keine passenden Textbausteine gefunden.</p>
+  {% endif %}
+
+  <button type="button" onclick="window.location.href='/'">⬅️ Neue Eingabe</button>
 </body>
+
 </html>
