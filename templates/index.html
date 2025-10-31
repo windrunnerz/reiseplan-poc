@@ -8,27 +8,44 @@
 <body>
     <h1>🌍 Automatischer Reiseplan</h1>
 
-    <form method="get" action="/reiseplan">
+    <form action="/reiseplan" method="POST">
+        <h3>Reiseabschnitte auswählen</h3>
 
-        <label>Reisedauer (Tage):</label><br>
-        <label><input type="radio" name="tage" value="5"> 5</label>
-        <label><input type="radio" name="tage" value="7"> 7</label>
-        <label><input type="radio" name="tage" value="10"> 10</label>
+        <label for="start">Startort:</label>
+        <select name="start" id="start">
+            {% for ort in start_orte %}
+            <option value="{{ ort | lower }}">{{ ort }}</option>
+            {% endfor %}
+        </select>
+
         <br><br>
 
-        <label for="">Reisethema:</label><br>
-        <label><input type="radio" name="thema" value="kultur"> Kultur</label>
-        <label><input type="radio" name="thema" value="outdoor"> Outdoor</label>
-        <label><input type="radio" name="thema" value="wellness"> Wellness</label>
+        <label for="ziel">Zielort:</label>
+        <select name="ziel" id="ziel">
+            {% for ort in ziel_orte %}
+            <option value="{{ ort | lower }}">{{ ort }}</option>
+            {% endfor %}
+        </select>
+
         <br><br>
 
-        <label>Route:</label><br>
-        <label><input type="radio" name="route" value="norwegen"> Norwegen</label>
-        <label><input type="radio" name="route" value="schweden"> Schweden</label>
+        <label for="zwischenstopps">Zwischenstopps (optional):</label><br>
+        {% for ort in stadt_orte %}
+            <input type="checkbox" name="zwischenstopps" value="{{ ort | lower }}"> {{ ort }}<br>
+        {% endfor %}
+
+        <br>
+        <label for="reiseart">Reiseart:</label>
+        <select name="reiseart" id="reiseart">
+            <option value="rundreise">Rundreise</option>
+            <option value="autorundreise">Autorundreise</option>
+            <option value="staedtereise">Städtereise</option>
+        </select>
+
         <br><br>
-
-        <button type="submit">Reiseplan generieren</button>
-
+        <button type="submit">Reiseplan anzeigen</button>
     </form>
+
+
 </body>
 </html>
