@@ -1,30 +1,137 @@
 [
   {
-    "id": 1,
-    "route": "norwegen",
-    "thema": "outdoor",
-    "tag": 1,
-    "text": "Anreise nach Oslo und Spaziergang am Hafen"
+    "id": "route_stege_kopenhagen",
+    "type": "route_simple",
+    "title": "Stege - Kopenhagen, ca. 125 km",
+    "text": "Heute empfehlen wir Ihnen die direkte Route nach Kopenhagen, damit Sie möglichst viel Zeit haben, die dänische Hauptstadt zu erkunden. Von Stege folgen Sie zunächst der Straße 59, anschließend bringen Sie die E47 und die E20 bequem bis nach Kopenhagen.",
+    "ort": null,
+    "start_ort": "Stege",
+    "ziel_ort": "Kopenhagen",
+    "varianten": null,
+    "sehenswuerdigkeiten": null,
+    "image": null
   },
   {
-    "id": 2,
-    "route": "norwegen",
-    "thema": "outdoor",
-    "tag": 2,
-    "text": "Wanderung im Jotunheimen Nationalpark"
+    "id": "city_kopenhagen",
+    "type": "city",
+    "title": "Kopenhagen",
+    "text": "Kopenhagen - oder auf Dänisch: Kobenhavn (Kaufmannshafen) - ist die märchenhafte Hauptstadt Dänemarks und das kulturelle Zentrum des Landes. Sie wurde 1167 gegründet und beherbergt zahlreiche Sehenswürdigkeiten wie das Schloss Amalienborg, die Kleine Meerjungfrau und den Vergnügungspark Tivoli. Die Stadt vereint königliche Geschichte, moderne Architektur und dänische Lebensfreude.",
+    "ort": "Kopenhagen",
+    "start_ort": null,
+    "ziel_ort": null,
+    "varianten": null,
+    "sehenswuerdigkeiten": [
+      "Tivoli",
+      "Rundetarn",
+      "Schloss Christiansborg",
+      "Nyhavn",
+      "Amalienborg",
+      "Kleine Meerjungfrau",
+      "Schloss Rosenborg"
+    ],
+    "image": "nyhavn.jpg"
   },
   {
-    "id": 3,
-    "route": "schweden",
-    "thema": "wellness",
-    "tag": 1,
-    "text": "Ankunft in Stockholm und Entspannung im Spa"
+    "id": "route_kopenhagen_vemb",
+    "type": "route_detailed",
+    "title": "Kopenhagen - Vemb, ca. 365 km",
+    "text": "Heute führt Sie Ihre Reise von der dänischen Hauptstadt an die Westküste Jütlands nach Vemb. Für diese Strecke stehen Ihnen zwei Routenoptionen zur Verfügung.",
+    "ort": null,
+    "start_ort": "Kopenhagen",
+    "ziel_ort": "Vemb",
+    "varianten": [
+      {
+        "name": "Route 1: Mit der Fähre über Aarhus",
+        "beschreibung": "Über die Route 21 nach Sjaellands Odde, Fähre nach Aarhus, dann über die Straße 18 weiter nach Vemb.",
+        "zwischenstopps": [
+          {
+            "ort": "Aarhus",
+            "highlight": "ARoS Kunstmuseum",
+            "details": "Dänemarks größte Kunstsammlung außerhalb von Kopenhagen, mit moderner und klassischer Kunst sowie dem berühmten 'Rainbow Panorama'."
+          }
+        ]
+      },
+      {
+        "name": "Route 2: Über die Große Belt Brücke und Funen",
+        "beschreibung": "Fahrt über die E20 über die Storebaelt-Brücke und durch Odense bis nach Vemb.",
+        "zwischenstopps": [
+          {
+            "ort": "Odense",
+            "highlight": "Hans-Christian-Andersen-Haus",
+            "details": "Interaktives Museum zu Leben und Werk des Dichters Hans Christian Andersen."
+          }
+        ]
+      }
+    ],
+    "sehenswuerdigkeiten": null,
+    "image": "aros.jpg"
   },
   {
-    "id": 4,
-    "route": "schweden",
-    "thema": "wellness",
-    "tag": 2,
-    "text": "Bootstour durch die Schäreninseln"
+    "id": "route_trelleborg_malmo",
+    "type": "route_simple",
+    "title": "Trelleborg - Malmö, ca. 30 km",
+    "text": "Nach der Ankunft in Trelleborg führt Sie die kurze Strecke entlang der E6 direkt nach Malmö. Unterwegs bietet sich ein kurzer Stopp an der Küste von Höllviken an, wo sich das Freilichtmuseum Foteviken befindet.",
+    "ort": null,
+    "start_ort": "Trelleborg",
+    "ziel_ort": "Malmö",
+    "varianten": null,
+    "sehenswuerdigkeiten": [
+      "Freilichtmuseum Foteviken",
+      "Küste von Höllviken"
+    ],
+    "image": "malmo_coast.jpg"
+  },
+  {
+    "id": "city_malmo",
+    "type": "city",
+    "title": "Malmö",
+    "text": "Malmö ist die drittgrößte Stadt Schwedens und liegt direkt an der Oresundbrücke, die Dänemark mit Schweden verbindet. Die Stadt ist bekannt für ihre moderne Architektur wie den Turning Torso, die historische Altstadt rund um den Lilla Torg und ihre lebendige Kulturszene.",
+    "ort": "Malmö",
+    "start_ort": null,
+    "ziel_ort": null,
+    "varianten": null,
+    "sehenswuerdigkeiten": [
+      "Turning Torso",
+      "Lilla Torg",
+      "Rathausplatz Stortorget",
+      "Malmohus Schloss",
+      "Oresundbrücke"
+    ],
+    "image": "malmo_turning_torso.jpg"
+  },
+  {
+    "id": "route_malmo_kopenhagen",
+    "type": "route_detailed",
+    "title": "Malmö - Kopenhagen, ca. 45 km",
+    "text": "Die Fahrt führt über die eindrucksvolle Oresundbrücke zurück nach Dänemark. Die Strecke verbindet die beiden Metropolen in nur etwa 45 Minuten.",
+    "ort": null,
+    "start_ort": "Malmö",
+    "ziel_ort": "Kopenhagen",
+    "varianten": [
+      {
+        "name": "Direkte Route über die Oresundbrücke",
+        "beschreibung": "Über die E20 fahren Sie über die 7,8 km lange Brücke nach Kastrup und weiter ins Zentrum von Kopenhagen.",
+        "zwischenstopps": [
+          {
+            "ort": "Kastrup",
+            "highlight": "Den Bla Planet",
+            "details": "Das größte Aquarium Nordeuropas, spektakulär direkt am Meer gelegen."
+          }
+        ]
+      },
+      {
+        "name": "Alternative mit Zwischenstopp in Dragor",
+        "beschreibung": "Kurz nach der Brücke Abfahrt nach Dragor, einem malerischen Fischerdorf mit historischen gelben Häusern.",
+        "zwischenstopps": [
+          {
+            "ort": "Dragor",
+            "highlight": "Altstadt und Hafen",
+            "details": "Ein gut erhaltenes Fischerdorf mit Kopfsteinpflastergassen und Blick auf den Oresund."
+          }
+        ]
+      }
+    ],
+    "sehenswuerdigkeiten": null,
+    "image": "oresund_bridge.jpg"
   }
 ]
