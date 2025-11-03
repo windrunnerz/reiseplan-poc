@@ -13,7 +13,7 @@ def reiseplan():
     Sind Zwischenstopps vorhanden, wird die Reihenfolge direkt aus der Eingabe übernommen.
     Das Ergebnis (Städte und Routen) wird anschließend im Template reiseplan.html dargestellt.
     """
-    
+
     start = request.form.get("start") or request.args.get("start") or "unbekannt"
     ziel = request.form.get("ziel") or request.args.get("ziel") or "unbekannt"
     zwischenstopps = (
@@ -22,12 +22,26 @@ def reiseplan():
         or []
     )
     bausteine = lade_bausteine()
+    graph = build_graph(bausteine)
 
     if zwischenstopps:
         route_chain = [start.lower()] + [s.lower() for s in zwischenstopps] + [ziel.lower()]
         mode = "manuell"
-    else:
-        graph = build_graph(bausteine)
+
+        # 🔍 Validierung: existieren alle Verbindungen im Graph?
+        for s, z in zip(route_chain, route_chain[1:]):
+            if z not in graph.get(s, []):
+                print(f"❌ Ungültige Verbindung: {s} → {z}")
+                return render_template(
+                    "reiseplan.html",
+                    plan=[],
+                    error=f"Ungültige Verbindung: {s} → {z}",
+                    route_chain=route_chain,
+                )
+            
+        print(f"✅ Alle Verbindungen gültig: {' → '.join(route_chain)}")
+
+    else:        
         route_chain = finde_route_pfad(start.lower(), ziel.lower(), graph)
         mode = "auto"
 

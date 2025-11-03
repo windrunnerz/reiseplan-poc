@@ -20,7 +20,12 @@
 
   <hr>
 
-  {% if plan %}
+  {% if error %}
+    <p class="error">❌ {{ error }}</p>
+  {% elif not plan %}
+    <p>⚠️ Keine passenden Textbausteine für die Route 
+     <strong>{{ ' → '.join(route_chain) }}</strong> gefunden.</p>
+  {% else %}
     {% for abschnitt in plan %}
       <h3>{{ abschnitt.title }}</h3>
 
@@ -55,8 +60,6 @@
 
       <hr>
     {% endfor %}
-  {% else %}
-    <p>Keine passenden Textbausteine gefunden.</p>
   {% endif %}
 
   <button type="button" onclick="window.location.href='/'">⬅️ Neue Eingabe</button>
