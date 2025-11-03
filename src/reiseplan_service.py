@@ -1,9 +1,11 @@
 import json
+from src.config import DATA_FILE
 
 def lade_bausteine():
-    with open("data/bausteine.json", "r", encoding="utf-8") as f:
+    """Lädt dynamisch die aktuell konfigurierte Baustein-Datei."""
+    with DATA_FILE.open(encoding="utf-8") as f:
         return json.load(f)
-    
+
 def erzeuge_reiseplan(route_chain, bausteine):
     """
     Erzeugt den vollständigen Reiseplan aus den vorhandenen Bausteinen und der route_chain.

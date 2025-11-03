@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from reiseplan_service import lade_bausteine, erzeuge_reiseplan, build_graph, finde_route_pfad
+from src.reiseplan_service import lade_bausteine, erzeuge_reiseplan, build_graph, finde_route_pfad
 
 app = Flask(__name__)
 
