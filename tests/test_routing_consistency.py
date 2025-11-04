@@ -4,6 +4,14 @@ from src.reiseplan_service import build_graph, finde_route_pfad, lade_bausteine
 
 # 🔹 Test 1: Jede Route verweist auf existierende Citys
 def test_routes_reference_existing_cities():
+    """
+    Prüft, dass jede definierte Route auf existierende Städte verweist.
+
+    Für alle Routen wird kontrolliert, dass sowohl start_ort als auch ziel_ort
+    in der Menge der City-Nodes vorhanden sind. Dadurch wird sichergestellt,
+    dass keine Route auf nicht definierte Orte zeigt und die Referenzintegrität
+    zwischen Routen und Städten gewahrt bleibt.
+    """
     data = lade_bausteine()
 
     cities = {b["ort"].lower() for b in data if b["type"] == "city"}
@@ -18,6 +26,14 @@ def test_routes_reference_existing_cities():
 
 # 🔹 Test 2: Der Graph kann erfolgreich gebaut werden
 def test_graph_builds_successfully():
+    """
+    Prüft, dass der aus den Routen generierte Graph gültig aufgebaut wird.
+
+    Der Test verifiziert, dass build_graph() eine nicht-leere Dictionary-
+    Struktur erzeugt, in der jeder Knoten (Ort) eine Liste von Nachbarn enthält.
+    Dadurch wird sichergestellt, dass alle definierten Routen korrekt in den
+    Graph überführt wurden und dieser strukturell konsistent ist.
+    """
     data = lade_bausteine()
     graph = build_graph(data)
 
@@ -48,3 +64,18 @@ def test_each_route_is_reachable(bidirectional):
         if bidirectional:
             reverse = finde_route_pfad(graph=graph, ziel=ziel, start=start)
             assert reverse is not None, f"Keine Rückverbindung: {ziel} → {start}"
+
+def test_cities_have_no_route_fields():
+    """
+    Prüft, dass City-Bausteine keine Routing-Felder enthalten.
+
+    Für alle Einträge mit type == "city" wird kontrolliert, dass weder
+    'start_ort' noch 'ziel_ort' im Datensatz vorhanden sind. Dadurch wird
+    sichergestellt, dass die Trennung zwischen Städte- und Routen-Objekten
+    eingehalten wird und keine veralteten Felder im JSON verbleiben.
+    """
+    data = lade_bausteine()
+
+    for city in [b for b in data if b["type"] == "city"]:
+        assert "start_ort" not in city, f"City {city['id']} enthält ungültiges Feld 'start_ort'"
+        assert "ziel_ort" not in city, f"City {city['id']} enthält ungültiges Feld 'ziel_ort'"
