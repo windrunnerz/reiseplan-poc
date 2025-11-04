@@ -1,5 +1,30 @@
 [
   {
+  "id": "city_roskilde",
+  "type": "city",
+  "title": "Roskilde",
+  "text": "Roskilde ist eine der ältesten Städte Dänemarks, bekannt für den beeindruckenden Dom und das weltberühmte Musikfestival.",
+  "ort": "Roskilde",
+  "sehenswuerdigkeiten": ["Dom von Roskilde", "Wikingerschiffmuseum"],
+  "image": "roskilde.jpg"
+  },
+  {
+  "id": "route_kopenhagen_roskilde",
+  "type": "route_simple",
+  "title": "Kopenhagen – Roskilde, ca. 35 km",
+  "text": "Diese Route führt westlich von Kopenhagen nach Roskilde über die E20. Eine kurze Fahrt durch die dänische Landschaft mit kulturellen Highlights.",
+  "start_ort": "Kopenhagen",
+  "ziel_ort": "Roskilde"
+  },
+  {
+  "id": "route_roskilde_vemb",
+  "type": "route_simple",
+  "title": "Roskilde – Vemb, ca. 280 km",
+  "text": "Lange, aber landschaftlich abwechslungsreiche Strecke von Roskilde nach Vemb durch Mitteljütland.",
+  "start_ort": "Roskilde",
+  "ziel_ort": "Vemb"
+  },
+  {
     "id": "city_trelleborg",
     "type": "city",
     "title": "Trelleborg",
