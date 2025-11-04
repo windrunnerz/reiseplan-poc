@@ -1,68 +1,81 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reiseplan</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reiseplan</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
 </head>
 <body>
-  <h1>Reiseplan</h1>
-  
-  <p>
-    <strong>Reiseverlauf:</strong>
-    {{ " → ".join(route_chain) | title }}
-    <br>
-    <strong>Reiseart:</strong> {{ reiseart | capitalize }}<br>
-    <strong>Dauer:</strong> {{ tage }} Tage
-  </p>
+  <main class="reiseplan-container">
 
-  </p>
+    <!-- 🧭 Sidebar Übersicht -->
+    <aside class="sidebar">
+      <h3>Reiseübersicht</h3>
+      <ol id="reise-nav">
+        {% for abschnitt in plan %}
+          {% set anchor_id = abschnitt.title|default('abschnitt-' ~ loop.index)|lower|replace(' ', '-')|replace('ä','ae')|replace('ö','oe')|replace('ü','ue')|replace('ß','ss') %}
+          <li><a href="#{{ anchor_id }}">{{ abschnitt.title }}</a></li>
+        {% endfor %}
+      </ol>
+    </aside>
 
-  <hr>
+    <!-- 🗺️ Reiseabschnitte -->
+    <section class="reise-section">
+      <h1>🗺️ Reiseplan</h1>
 
-  {% if error %}
-    <p class="error">❌ {{ error }}</p>
-  {% elif not plan %}
-    <p>⚠️ Keine passenden Textbausteine für die Route 
-     <strong>{{ ' → '.join(route_chain) }}</strong> gefunden.</p>
-  {% else %}
-    {% for abschnitt in plan %}
-      <h3>{{ abschnitt.title }}</h3>
+      <div class="card">
+        <p><strong>Reiseverlauf:</strong> {{ " → ".join(route_chain) | title }}</p>
+        <p><strong>Reiseart:</strong> {{ reiseart | capitalize }}</p>
+        <p><strong>Dauer:</strong> {{ tage }} Tage</p>
+      </div>
 
-      {% if abschnitt.type == "city" %}
-        <p><em>Ort:</em> {{ abschnitt.ort }}</p>
-      {% elif abschnitt.type.startswith("route") %}
-        <p><em>Von:</em> {{ abschnitt.start_ort }} → <em>Nach:</em> {{ abschnitt.ziel_ort }}</p>
-      {% endif %}
+      {% if error %}
+        <p class="error">❌ {{ error }}</p>
+      {% elif not plan %}
+        <p>⚠️ Keine passenden Textbausteine für die Route <strong>{{ ' → '.join(route_chain) }}</strong> gefunden.</p>
+      {% else %}
+        {% for abschnitt in plan %}
+          {% set anchor_id = abschnitt.title|default('abschnitt-' ~ loop.index)|lower|replace(' ', '-')|replace('ä','ae')|replace('ö','oe')|replace('ü','ue')|replace('ß','ss') %}
+          <div class="card" id="{{ anchor_id }}">
+            <h3>{{ abschnitt.title }}</h3>
 
-      <p>{{ abschnitt.text }}</p>
-
-      {% if abschnitt.varianten %}
-        <details>
-          <summary><strong>Alternative Routen</strong></summary>
-          {% for v in abschnitt.varianten %}
-            <p><u>{{ v.name }}</u>: {{ v.beschreibung }}</p>
-            {% if v.zwischenstopps %}
-              <ul>
-                {% for z in v.zwischenstopps %}
-                  <li><strong>{{ z.ort }}</strong>: {{ z.highlight }} — {{ z.details }}</li>
-                {% endfor %}
-              </ul>
+            {% if abschnitt.type == "city" %}
+              <p><em>Ort:</em> {{ abschnitt.ort }}</p>
+            {% elif abschnitt.type.startswith("route") %}
+              <p><em>Von:</em> {{ abschnitt.start_ort }} → <em>Nach:</em> {{ abschnitt.ziel_ort }}</p>
             {% endif %}
-          {% endfor %}
-        </details>
+
+            <p>{{ abschnitt.text }}</p>
+
+            {% if abschnitt.varianten %}
+              <details>
+                <summary><strong>Alternative Routen</strong></summary>
+                {% for v in abschnitt.varianten %}
+                  <p><u>{{ v.name }}</u>: {{ v.beschreibung }}</p>
+                  {% if v.zwischenstopps %}
+                    <ul>
+                      {% for z in v.zwischenstopps %}
+                        <li><strong>{{ z.ort }}</strong>: {{ z.highlight }} — {{ z.details }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% endfor %}
+              </details>
+            {% endif %}
+
+            {% if abschnitt.image %}
+              <img src="{{ url_for('static', filename='images/' + abschnitt.image) }}" 
+                  alt="{{ abschnitt.title }}">
+            {% endif %}
+          </div>
+        {% endfor %}
       {% endif %}
 
-      {% if abschnitt.image %}
-        <img src="{{ url_for('static', filename='images/' + abschnitt.image) }}" 
-             alt="{{ abschnitt.title }}" width="400">
-      {% endif %}
-
-      <hr>
-    {% endfor %}
-  {% endif %}
-
-  <button type="button" onclick="window.location.href='/'">⬅️ Neue Eingabe</button>
+      <div class="text-center mt-3">
+        <button type="button" class="btn cancel" onclick="window.location.href='/'">⬅️ Neue Eingabe</button>
+      </div>
+    </section>
+  </main>
 </body>
-
 </html>
