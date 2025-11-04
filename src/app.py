@@ -4,8 +4,8 @@ from src.config import TEMPLATE_DIR, STATIC_DIR
 
 app = Flask(
     __name__,
-    template_folder=str(TEMPLATE_DIR / "templates"),
-    static_folder=str(STATIC_DIR / "static"),
+    template_folder=str(TEMPLATE_DIR),
+    static_folder=str(STATIC_DIR),
 )
 
 @app.route("/reiseplan", methods=["GET", "POST"])
@@ -43,10 +43,10 @@ def reiseplan():
                     error=f"Ungültige Verbindung: {s} → {z}",
                     route_chain=route_chain,
                 )
-            
+ 
         print(f"✅ Alle Verbindungen gültig: {' → '.join(route_chain)}")
 
-    else:        
+    else:
         route_chain = finde_route_pfad(start.lower(), ziel.lower(), graph)
         mode = "auto"
 
