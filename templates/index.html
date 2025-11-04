@@ -8,10 +8,20 @@
 <body>
     <h1>🌍 Automatischer Reiseplan</h1>
 
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for msg in messages %}
+            <p style="background: #dff0d8; padding: 0.5em; border-radius: 6px;">{{ msg }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
     <form action="/reiseplan" method="POST">
         <h3>Start & Ziel</h3>
 
-        <label for="start">Startort:</label>
+        <label for="start">Start-Ort:</label>
         <select name="start" id="start">
             {% for ort in start_orte %}
             <option value="{{ ort | lower }}">{{ ort }}</option>
@@ -20,7 +30,7 @@
 
         <br><br>
 
-        <label for="ziel">Zielort:</label>
+        <label for="ziel">Ziel-Ort:</label>
         <select name="ziel" id="ziel">
             {% for ort in ziel_orte %}
             <option value="{{ ort | lower }}">{{ ort }}</option>
@@ -44,8 +54,11 @@
 
         <br><br>
         <button type="submit">Reiseplan anzeigen</button>
+    </form><br>
+    
+    <form action="{{ url_for('add_baustein') }}" method="get" style="margin-bottom: 1em;">
+      <button type="submit" class="btn">➕ Neuen Baustein hinzufügen</button>
     </form>
-
 
 </body>
 </html>

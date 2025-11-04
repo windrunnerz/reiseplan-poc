@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Allgemeines Layout */
+    body {
+        font-family: system-ui, sans-serif;
+        background-color: #f7f9fc;
+        color: #222;
+    }
+
+    h2 {
+        color: #003366;
+        margin-bottom: 1rem;
+    }
+
+    fieldset {
+        display: inline-block;
+        padding: 0.5em 1em;
+        border: 1px solid #cdd6e0;
+        border-radius: 8px;
+        background: #fff;
+        margin-bottom: 1.5em;
+    }
+
+    /* Eingabeblöcke für City und Route */
+    .form-section {
+        background: #ffffff;
+        border: 1px solid #dce3ec;
+        border-radius: 10px;
+        padding: 1em 1.2em;
+        margin-bottom: 1.5em;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .form-section label {
+        display: block;
+        font-weight: 600;
+        margin-top: 0.5em;
+        color: #333;
+    }
+
+    .form-section input[type="text"],
+    .form-section textarea,
+    .form-section select {
+        width: 100%;
+        padding: 0.5em;
+        border: 1px solid #ccd4dd;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        margin-top: 0.3em;
+    }
+
+    /* Buttons */
+    .btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 0.6em 1.2em;
+        cursor: pointer;
+        font-size: 0.95rem;
+    }
+
+    .btn:hover {
+        background-color: #005dc1;
+    }
+
+    .btn.cancel {
+        background-color: #e0e0e0;
+        color: #333;
+    }
+
+    .btn.cancel:hover {
+        background-color: #ccc;
+    }
+  </style>
+  <title>Neuen Baustein hinzufügen</title>
+</head>
+<body>
+  <main class="container" style="max-width: 700px; margin-top: 2rem;">
+    <h2>➕ Neuen Baustein hinzufügen</h2>
+
+    <form action="{{ url_for('add_baustein') }}" method="post" id="bausteinForm">
+      <fieldset>
+        <legend>Typ wählen:</legend>
+        <label>
+          <input type="radio" name="type" value="city" required> City
+        </label>
+        <label style="margin-left: 1em;">
+          <input type="radio" name="type" value="route"> Route
+        </label>
+      </fieldset>
+
+      <!-- 🏙️ City-Felder -->
+      <div id="cityFields" class="form-section">
+        <h3>🏙️ City-Baustein</h3>
+        <label for="ort">Ort:</label>
+        <input type="text" id="ort" name="ort" required>
+
+        <label for="text">Beschreibung:</label>
+        <textarea id="text" name="text" rows="3" placeholder="Beschreibung des Ortes..."></textarea>
+
+        <label for="image">Bilddatei (optional):</label>
+        <input type="text" id="image" name="image" placeholder="roskilde.jpg">
+      </div>
+
+      <!-- 🛣️ Route-Felder -->
+      <div id="routeFields" class="form-section" style="display: none;">
+        <h3>🛣️ Route-Baustein</h3>
+        <label for="start_ort">Start-Ort:</label>
+        <select id="start_ort" name="start_ort" required>
+            {% for ort in start_orte %}
+            <option value="{{ ort | lower }}">{{ ort }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="ziel_ort">Ziel-Ort:</label>
+        <select id="ziel_ort" name="ziel_ort" required>
+            {% for ort in ziel_orte %}
+            <option value="{{ ort | lower }}">{{ ort }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="route_text">Beschreibung:</label>
+        <textarea id="route_text" name="text" rows="3" placeholder="Beschreibung der Route..."></textarea>
+      </div>
+
+      <div style="margin-top: 1em;">
+        <button type="submit" class="btn">Speichern</button>
+        <button id="cancelBtn" class="btn cancel">Abbrechen</button>
+
+        <script>
+        document.getElementById('cancelBtn').addEventListener('click', () => {
+            window.location.href = "{{ url_for('index') }}";
+        });
+        </script>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    // JS zum Umschalten der Felder
+    const radios = document.querySelectorAll('input[name="type"]');
+    const cityFields = document.getElementById('cityFields');
+    const routeFields = document.getElementById('routeFields');
+
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value === 'city') {
+          cityFields.style.display = 'block';
+          routeFields.style.display = 'none';
+        } else {
+          cityFields.style.display = 'none';
+          routeFields.style.display = 'block';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

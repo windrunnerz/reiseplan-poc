@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, flash
 from src.reiseplan_service import lade_bausteine, erzeuge_reiseplan, build_graph, finde_route_pfad
 from src.config import TEMPLATE_DIR, STATIC_DIR
 
@@ -7,6 +7,20 @@ app = Flask(
     template_folder=str(TEMPLATE_DIR),
     static_folder=str(STATIC_DIR),
 )
+app.secret_key = "supersecretkey"
+
+def get_orte():
+    """Lädt Bausteine und gibt Start-, Ziel- und City-Orte sortiert zurück."""
+    bausteine = lade_bausteine()
+
+    routen = [b for b in bausteine if b["type"].startswith("route_")]
+    cities = [b for b in bausteine if b["type"] == "city"]
+
+    start_orte = sorted({b["start_ort"] for b in routen})
+    ziel_orte = sorted({b["ziel_ort"] for b in routen})
+    stadt_orte = sorted({b["ort"] for b in cities})
+
+    return start_orte, ziel_orte, stadt_orte
 
 @app.route("/reiseplan", methods=["GET", "POST"])
 def reiseplan():
@@ -43,7 +57,7 @@ def reiseplan():
                     error=f"Ungültige Verbindung: {s} → {z}",
                     route_chain=route_chain,
                 )
- 
+
         print(f"✅ Alle Verbindungen gültig: {' → '.join(route_chain)}")
 
     else:
@@ -66,18 +80,29 @@ def reiseplan():
         route_chain=route_chain
     )
 
+@app.route("/add_baustein", methods=["GET", "POST"])
+def add_baustein():
+    if request.method == "POST":
+        form_data = request.form.to_dict()
+        print("📨 Neues Formular erhalten:")
+        for key, value in form_data.items():
+            print(f" - {key}: {value}")
+
+        flash("✅ Neuer Baustein erfolgreich gespeichert.")
+        return redirect(url_for("index"))
+    
+    # GET → Formular anzeigen
+    start_orte, ziel_orte, stadt_orte = get_orte()
+    return render_template(
+        "add_baustein.html",
+        start_orte=start_orte,
+        ziel_orte=ziel_orte,
+        stadt_orte=stadt_orte
+    )
 
 @app.route("/")
-def index():
-    bausteine = lade_bausteine()
-
-    routen = [b for b in bausteine if b["type"].startswith("route_")]
-    cities = [b for b in bausteine if b["type"] == "city"]
-
-    start_orte = sorted({b["start_ort"] for b in routen})
-    ziel_orte = sorted({b["ziel_ort"] for b in routen})
-    stadt_orte = sorted({b["ort"] for b in cities})
-
+def index():   
+    start_orte, ziel_orte, stadt_orte = get_orte()
     return render_template(
         "index.html",
         start_orte=start_orte,
