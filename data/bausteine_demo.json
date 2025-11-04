@@ -1,47 +1,40 @@
 [
   {
-  "id": "city_trelleborg",
-  "type": "city",
-  "title": "Trelleborg",
-  "text": "Trelleborg ist Schwedens südlichste Stadt und ein wichtiger Fährhafen. Von hier aus verkehren täglich Schiffe nach Deutschland und Polen. Die Stadt gilt als Tor nach Skandinavien und verbindet historischen Charme mit maritimem Flair.",
-  "ort": "Trelleborg",
-  "start_ort": null,
-  "ziel_ort": null,
-  "varianten": null,
-  "sehenswuerdigkeiten": [
-    "Trelleborg Museum",
-    "Stortorget",
-    "Alter Hafen"
-  ],
-  "image": null
+    "id": "city_trelleborg",
+    "type": "city",
+    "title": "Trelleborg",
+    "text": "Trelleborg ist Schwedens südlichste Stadt und ein wichtiger Fährhafen. Von hier aus verkehren täglich Schiffe nach Deutschland und Polen. Die Stadt gilt als Tor nach Skandinavien und verbindet historischen Charme mit maritimem Flair.",
+    "ort": "Trelleborg",
+    "sehenswuerdigkeiten": [
+      "Trelleborg Museum",
+      "Stortorget",
+      "Alter Hafen"
+    ],
+    "image": null
   },
   {
-  "id": "city_vemb",
-  "type": "city",
-  "title": "Vemb",
-  "text": "Vemb ist eine kleine Stadt im Westen Dänemarks und bekannt für ihre ruhige Lage und Nähe zur Nordsee.",
-  "ort": "Vemb",
-  "start_ort": null,
-  "ziel_ort": null,
-  "varianten": null,
-  "sehenswuerdigkeiten": [],
-  "image": null
+    "id": "city_vemb",
+    "type": "city",
+    "title": "Vemb",
+    "text": "Vemb ist eine kleine Stadt im Westen Dänemarks und bekannt für ihre ruhige Lage und Nähe zur Nordsee.",
+    "ort": "Vemb",
+    "sehenswuerdigkeiten": [],
+    "image": null
   },
   {
-  "id": "city_stege",
-  "type": "city",
-  "title": "Stege",
-  "text": "Kleine dänische Stadt auf der Insel Møn.",
-  "ort": "Stege",
-  "sehenswuerdigkeiten": [],
-  "image": null
+    "id": "city_stege",
+    "type": "city",
+    "title": "Stege",
+    "text": "Kleine dänische Stadt auf der Insel Møn.",
+    "ort": "Stege",
+    "sehenswuerdigkeiten": [],
+    "image": null
   },
   {
     "id": "route_stege_kopenhagen",
     "type": "route_simple",
     "title": "Stege - Kopenhagen, ca. 125 km",
     "text": "Heute empfehlen wir Ihnen die direkte Route nach Kopenhagen, damit Sie möglichst viel Zeit haben, die dänische Hauptstadt zu erkunden. Von Stege folgen Sie zunächst der Straße 59, anschließend bringen Sie die E47 und die E20 bequem bis nach Kopenhagen.",
-    "ort": null,
     "start_ort": "Stege",
     "ziel_ort": "Kopenhagen",
     "varianten": null,
@@ -54,9 +47,6 @@
     "title": "Kopenhagen",
     "text": "Kopenhagen - oder auf Dänisch: Kobenhavn (Kaufmannshafen) - ist die märchenhafte Hauptstadt Dänemarks und das kulturelle Zentrum des Landes. Sie wurde 1167 gegründet und beherbergt zahlreiche Sehenswürdigkeiten wie das Schloss Amalienborg, die Kleine Meerjungfrau und den Vergnügungspark Tivoli. Die Stadt vereint königliche Geschichte, moderne Architektur und dänische Lebensfreude.",
     "ort": "Kopenhagen",
-    "start_ort": null,
-    "ziel_ort": null,
-    "varianten": null,
     "sehenswuerdigkeiten": [
       "Tivoli",
       "Rundetarn",
@@ -73,7 +63,6 @@
     "type": "route_detailed",
     "title": "Kopenhagen - Vemb, ca. 365 km",
     "text": "Heute führt Sie Ihre Reise von der dänischen Hauptstadt an die Westküste Jütlands nach Vemb. Für diese Strecke stehen Ihnen zwei Routenoptionen zur Verfügung.",
-    "ort": null,
     "start_ort": "Kopenhagen",
     "ziel_ort": "Vemb",
     "varianten": [
@@ -108,7 +97,6 @@
     "type": "route_simple",
     "title": "Trelleborg - Malmö, ca. 30 km",
     "text": "Nach der Ankunft in Trelleborg führt Sie die kurze Strecke entlang der E6 direkt nach Malmö. Unterwegs bietet sich ein kurzer Stopp an der Küste von Höllviken an, wo sich das Freilichtmuseum Foteviken befindet.",
-    "ort": null,
     "start_ort": "Trelleborg",
     "ziel_ort": "Malmö",
     "varianten": null,
@@ -124,9 +112,6 @@
     "title": "Malmö",
     "text": "Malmö ist die drittgrößte Stadt Schwedens und liegt direkt an der Oresundbrücke, die Dänemark mit Schweden verbindet. Die Stadt ist bekannt für ihre moderne Architektur wie den Turning Torso, die historische Altstadt rund um den Lilla Torg und ihre lebendige Kulturszene.",
     "ort": "Malmö",
-    "start_ort": null,
-    "ziel_ort": null,
-    "varianten": null,
     "sehenswuerdigkeiten": [
       "Turning Torso",
       "Lilla Torg",
@@ -141,7 +126,6 @@
     "type": "route_detailed",
     "title": "Malmö - Kopenhagen, ca. 45 km",
     "text": "Die Fahrt führt über die eindrucksvolle Oresundbrücke zurück nach Dänemark. Die Strecke verbindet die beiden Metropolen in nur etwa 45 Minuten.",
-    "ort": null,
     "start_ort": "Malmö",
     "ziel_ort": "Kopenhagen",
     "varianten": [

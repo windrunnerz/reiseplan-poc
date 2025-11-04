@@ -1,7 +1,12 @@
 from flask import Flask, render_template, request
 from src.reiseplan_service import lade_bausteine, erzeuge_reiseplan, build_graph, finde_route_pfad
+from src.config import TEMPLATE_DIR, STATIC_DIR
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    template_folder=str(TEMPLATE_DIR / "templates"),
+    static_folder=str(STATIC_DIR / "static"),
+)
 
 @app.route("/reiseplan", methods=["GET", "POST"])
 def reiseplan():
@@ -66,9 +71,12 @@ def reiseplan():
 def index():
     bausteine = lade_bausteine()
 
-    start_orte = sorted({b["start_ort"] for b in bausteine if b["start_ort"]})
-    ziel_orte = sorted({b["ziel_ort"] for b in bausteine if b["ziel_ort"]})
-    stadt_orte = sorted({b["ort"] for b in bausteine if b["ort"]})
+    routen = [b for b in bausteine if b["type"].startswith("route_")]
+    cities = [b for b in bausteine if b["type"] == "city"]
+
+    start_orte = sorted({b["start_ort"] for b in routen})
+    ziel_orte = sorted({b["ziel_ort"] for b in routen})
+    stadt_orte = sorted({b["ort"] for b in cities})
 
     return render_template(
         "index.html",
