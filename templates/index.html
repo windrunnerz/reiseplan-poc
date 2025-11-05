@@ -1,64 +1,76 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reiseplan Generator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
-</head>
-<body>
-  <main class="container">
-    <h1>🌍 Automatischer Reiseplan</h1>
+{% extends "base.html" %}
+{% block title %}Reiseplan Generator{% endblock %}
 
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="flash-messages">
-          {% for msg in messages %}
-            <p>{{ msg }}</p>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
+{% block sidebar %}
+  <div class="page-sidebar-wrapper">
+    <aside class="page-sidebar">
+      <h3>🧭 Beispielroute</h3>
+      <ol>
+        <li>Hamburg → Bremen</li>
+        <li>Bremen → Hannover</li>
+        <li>Hannover → Leipzig</li>
+      </ol>
+      <p style="margin-top: 1em; font-size: 0.9em;">
+        Diese Beispielroute zeigt, wie der automatische Reiseplan funktioniert.<br>
+        Wähle Start, Ziel und Zwischenstopps, um deine eigene Route zu erstellen.
+      </p>
+    </aside>
+  </div>
+{% endblock %}
 
-    <form action="/reiseplan" method="POST" class="card">
-      <h3>Start & Ziel</h3>
+{% block content %}
+  <h1>🌍 Automatischer Reiseplan</h1>
 
-      <label for="start">Start-Ort:</label>
-      <select name="start" id="start">
-        {% for ort in start_orte %}
-          <option value="{{ ort | lower }}">{{ ort }}</option>
-        {% endfor %}
-      </select>
-
-      <label for="ziel" class="mt-1">Ziel-Ort:</label>
-      <select name="ziel" id="ziel">
-        {% for ort in ziel_orte %}
-          <option value="{{ ort | lower }}">{{ ort }}</option>
-        {% endfor %}
-      </select>
-
-      <label for="zwischenstopps" class="mt-2">Zwischenstopps (optional):</label>
-      <div class="form-section">
-        {% for ort in stadt_orte %}
-          <label><input type="checkbox" name="zwischenstopps" value="{{ ort | lower }}"> {{ ort }}</label>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for msg in messages %}
+          <p>{{ msg }}</p>
         {% endfor %}
       </div>
+    {% endif %}
+  {% endwith %}
 
-      <label for="reiseart">Reiseart:</label>
-      <select name="reiseart" id="reiseart">
-        <option value="rundreise">Rundreise</option>
-        <option value="autorundreise">Autorundreise</option>
-        <option value="staedtereise">Städtereise</option>
-      </select>
+  <form action="/reiseplan" method="POST" class="card">
+    <h3>Start & Ziel</h3>
 
-      <div class="mt-2 text-center">
-        <button type="submit" class="btn">Reiseplan anzeigen</button>
-      </div>
-    </form>
+    <label for="start">Start-Ort:</label>
+    <select name="start" id="start">
+      {% for ort in start_orte %}
+        <option value="{{ ort | lower }}">{{ ort }}</option>
+      {% endfor %}
+    </select>
 
-    <form action="{{ url_for('add_baustein') }}" method="get" class="mt-3 text-center">
-      <button type="submit" class="btn">➕ Neuen Baustein hinzufügen</button>
-    </form>
-  </main>
-</body>
-</html>
+    <label for="ziel" class="mt-1">Ziel-Ort:</label>
+    <select name="ziel" id="ziel">
+      {% for ort in ziel_orte %}
+        <option value="{{ ort | lower }}">{{ ort }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="zwischenstopps" class="mt-2">Zwischenstopps (optional):</label>
+    <div class="form-section">
+      {% for ort in stadt_orte %}
+        <label>
+          <input type="checkbox" name="zwischenstopps" value="{{ ort | lower }}">
+          {{ ort }}
+        </label>
+      {% endfor %}
+    </div>
+
+    <label for="reiseart">Reiseart:</label>
+    <select name="reiseart" id="reiseart">
+      <option value="rundreise">Rundreise</option>
+      <option value="autorundreise">Autorundreise</option>
+      <option value="staedtereise">Städtereise</option>
+    </select>
+
+    <div class="mt-2 text-center">
+      <button type="submit" class="btn">Reiseplan anzeigen</button>
+    </div>
+  </form>
+
+  <form action="{{ url_for('add_baustein') }}" method="get" class="mt-3 text-center">
+    <button type="submit" class="btn">➕ Neuen Baustein hinzufügen</button>
+  </form>
+{% endblock %}

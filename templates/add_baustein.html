@@ -1,66 +1,59 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neuen Baustein hinzufügen</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/stylesheet.css') }}">
-</head>
-<body>
-  <main class="container">
-    <h2>➕ Neuen Baustein hinzufügen</h2>
+{% extends "base.html" %}
+{% block title %}Neuen Baustein hinzufügen{% endblock %}
 
-    <form action="{{ url_for('add_baustein') }}" method="post" id="bausteinForm">
-      <fieldset>
-        <legend>Typ wählen:</legend>
-        <label>
-          <input type="radio" name="type" value="city" required> City
-        </label>
-        <label style="margin-left: 1em;">
-          <input type="radio" name="type" value="route"> Route
-        </label>
-      </fieldset>
+{% block content %}
+  <h2>➕ Neuen Baustein hinzufügen</h2>
 
-      <!-- 🏙️ City-Felder -->
-      <div id="cityFields" class="form-section">
-        <h3>🏙️ City-Baustein</h3>
-        <label for="ort">Ort:</label>
-        <input type="text" id="ort" name="ort" required>
+  <form action="{{ url_for('add_baustein') }}" method="post" id="bausteinForm">
+    <fieldset>
+      <legend>Typ wählen:</legend>
+      <label>
+        <input type="radio" name="type" value="city" required checked> City
+      </label>
+      <label style="margin-left: 1em;">
+        <input type="radio" name="type" value="route"> Route
+      </label>
+    </fieldset>
 
-        <label for="text">Beschreibung:</label>
-        <textarea id="text" name="text" rows="3" placeholder="Beschreibung des Ortes..."></textarea>
+    <!-- 🏙️ City-Felder -->
+    <div id="cityFields" class="form-section">
+      <h3>🏙️ City-Baustein</h3>
+      <label for="ort">Ort:</label>
+      <input type="text" id="ort" name="ort" required>
 
-        <label for="image">Bilddatei (optional):</label>
-        <input type="text" id="image" name="image" placeholder="roskilde.jpg">
-      </div>
+      <label for="text">Beschreibung:</label>
+      <textarea id="text" name="text" rows="3" placeholder="Beschreibung des Ortes..."></textarea>
 
-      <!-- 🛣️ Route-Felder -->
-      <div id="routeFields" class="form-section" style="display: none;">
-        <h3>🛣️ Route-Baustein</h3>
-        <label for="start_ort">Start-Ort:</label>
-        <select id="start_ort" name="start_ort" required>
-            {% for ort in start_orte %}
-            <option value="{{ ort | lower }}">{{ ort }}</option>
-            {% endfor %}
-        </select>
+      <label for="image">Bilddatei (optional):</label>
+      <input type="text" id="image" name="image" placeholder="roskilde.jpg">
+    </div>
 
-        <label for="ziel_ort">Ziel-Ort:</label>
-        <select id="ziel_ort" name="ziel_ort" required>
-            {% for ort in ziel_orte %}
-            <option value="{{ ort | lower }}">{{ ort }}</option>
-            {% endfor %}
-        </select>
+    <!-- 🛣️ Route-Felder -->
+    <div id="routeFields" class="form-section" style="display: none;">
+      <h3>🛣️ Route-Baustein</h3>
+      <label for="start_ort">Start-Ort:</label>
+      <select id="start_ort" name="start_ort" required>
+          {% for ort in start_orte %}
+          <option value="{{ ort | lower }}">{{ ort }}</option>
+          {% endfor %}
+      </select>
 
-        <label for="route_text">Beschreibung:</label>
-        <textarea id="route_text" name="text" rows="3" placeholder="Beschreibung der Route..."></textarea>
-      </div>
+      <label for="ziel_ort">Ziel-Ort:</label>
+      <select id="ziel_ort" name="ziel_ort" required>
+          {% for ort in ziel_orte %}
+          <option value="{{ ort | lower }}">{{ ort }}</option>
+          {% endfor %}
+      </select>
 
-      <div class="mt-2">
-        <button type="submit" class="btn">Speichern</button>
-        <button id="cancelBtn" class="btn cancel" type="button">Abbrechen</button>
-      </div>
-    </form>
-  </main>
+      <label for="route_text">Beschreibung:</label>
+      <textarea id="route_text" name="text" rows="3" placeholder="Beschreibung der Route..."></textarea>
+    </div>
+
+    <div class="mt-2">
+      <button type="submit" class="btn">Speichern</button>
+      <button id="cancelBtn" class="btn cancel" type="button">Abbrechen</button>
+    </div>
+  </form>
 
   <script>
     // Umschalten zwischen City- und Route-Feldern
@@ -84,5 +77,4 @@
       window.location.href = "{{ url_for('index') }}";
     });
   </script>
-</body>
-</html>
+{% endblock %}

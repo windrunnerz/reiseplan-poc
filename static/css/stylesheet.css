@@ -16,6 +16,7 @@
   --radius: 10px;
   --shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   --font-family: system-ui, sans-serif;
+  --sidebar-offset: 320px;
 }
 
 /* -----------------------------
@@ -30,6 +31,7 @@ html, body {
   line-height: 1.5;
 }
 
+/* Hauptcontainer ohne Sidebar (z. B. Add-Baustein-Seite) */
 main.container {
   max-width: 800px;
   margin: 2rem auto;
@@ -196,26 +198,51 @@ img {
 .mt-3 { margin-top: 1.5em; }
 
 /* ========================================================
-   🧭 Sidebar + Scroll-Spy (Reiseplan)
-   Modularer Zusatz, beeinflusst nur .reiseplan-container
+   🌿 Standard-Layout mit Sidebar
+   Für alle Seiten: Hauptinhalt zentriert, Sidebar links angedockt
    ======================================================== */
 
-.reiseplan-container {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 2rem;
-  align-items: start;
-  margin: 2rem auto;
+.page-with-sidebar {
+  position: relative;          /* Rahmen für absolute Sidebar */
+  display: block;              /* Sidebar wird aus dem Flow entfernt */
+  max-width: 800px;
+  margin: 2rem auto;           /* Hauptkarte zentriert */
   padding: 0 2rem 2rem;
-  max-width: 1200px;
   box-sizing: border-box;
 }
 
-/* --- Sidebar --- */
-.sidebar {
+/* Wrapper für Sidebar – nimmt sie aus dem normalen Höhenfluss */
+.page-sidebar-wrapper {
+  position: absolute;
+  left: calc(50% - 800px / 2 - 320px);
+  top: 0;
+  height: 100%;
+}
+
+/* Hauptinhalt */
+.page-main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Wenn keine Sidebar vorhanden ist → einspaltiges Layout */
+.page-with-sidebar:not(:has(.page-sidebar)) {
+  display: block;
+  max-width: 800px;
+  padding: 1rem;
+}
+
+/* --- Sticky Sidebar selbst --- */
+.page-sidebar {
   position: sticky;
-  top: 7.9rem;
+  top: 6.5rem;
   align-self: start;
+
+  width: max-content;
+  min-width: 200px;
+  max-width: 280px;
+  overflow: visible;
+
   background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
@@ -223,19 +250,25 @@ img {
   padding: 1em 1.2em;
 }
 
-.sidebar h3 {
+.page-sidebar h3 {
   color: var(--primary-dark);
   margin-top: 0;
   margin-bottom: 0.5em;
 }
 
-.sidebar ol {
+.page-sidebar ol {
   list-style: decimal;
   padding-left: 1.2em;
   margin: 0;
 }
 
-.sidebar a {
+.page-sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.page-sidebar a {
   color: var(--primary-dark);
   text-decoration: none;
   display: block;
@@ -244,28 +277,33 @@ img {
   transition: background 0.3s ease, color 0.3s ease, border-left 0.3s ease;
 }
 
-.sidebar a:focus {
+.page-sidebar a:focus {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
-/* Hover-Effekt mit Textmarker-Stil */
-.sidebar a:hover {
-  text-decoration: none; /* kein Unterstrich */
+.page-sidebar a:hover {
   background: linear-gradient(to right, rgba(123, 174, 140, 0.2), transparent 70%);
   color: var(--primary);
   border-radius: 3px;
-  transition: background 0.2s ease, color 0.2s ease, border-left 0.2s ease;
 }
 
-/* --- Responsive Fallback --- */
-@media (max-width: 800px) {
-  .reiseplan-container {
-    grid-template-columns: 1fr;
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .page-with-sidebar {
+    max-width: 100%;
+    padding: 0 1rem;
   }
-  .sidebar {
-    position: relative;
-    top: auto;
+
+  .page-sidebar-wrapper {
+    position: static;
+    height: auto;
+  }
+
+  .page-sidebar {
+    position: static;
+    width: auto;
     margin-bottom: 1rem;
   }
 }
+
