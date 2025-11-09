@@ -126,11 +126,17 @@ def build_graph(bausteine):
 
     return graph
 
-def finde_route_pfad(start, ziel, graph, pfad=None):
+def finde_route_pfad(start, ziel, graph, pfad=None, alle=False) -> list | None:
     """
-    Findet einen Pfad (Liste von Orten) von start → ziel im gegebenen Graphen.
+    Findet Pfade (Listen von Orten) von start → ziel im gegebenen Graphen.
+
     Nutzt Depth-First Search (Tiefensuche).
-    Gibt None zurück, wenn kein Pfad existiert.
+
+    Rückgabe:
+        Wenn alle=False:
+            Gibt den ersten gefundenen Pfad als Liste zurück oder None, falls kein Pfad existiert.
+        Wenn alle=True:
+            Gibt eine Liste aller möglichen Pfade zurück (Liste von Listen).
     """
 
     # 1️⃣ Erster Aufruf: leere Liste initialisieren
@@ -142,18 +148,27 @@ def finde_route_pfad(start, ziel, graph, pfad=None):
 
     # 3️⃣ Abbruchbedingung: Ziel erreicht
     if start == ziel:
-        return pfad
+        return [pfad] if alle else pfad
 
     # 4️⃣ Keine weiteren Verbindungen → Sackgasse
     if start not in graph:
-        return None
+        return [] if alle else None
 
     # 5️⃣ Für alle Nachbarn (direkt erreichbare Orte)
+    ergebnisse = []
     for nachbar in graph[start]:
         if nachbar not in pfad:  # vermeidet Zyklen
-            neuer_pfad = finde_route_pfad(nachbar, ziel, graph, pfad)
-            if neuer_pfad:  # sobald ein gültiger Pfad gefunden wird
-                return neuer_pfad
+            result = finde_route_pfad(nachbar, ziel, graph, pfad, alle=alle)
+            if alle: 
+                # Alle gültigen Pfade sammeln
+                if result:                    
+                    for r in result:
+                        ergebnisse.append(r)
+            else:
+                # Ersten gültigen Pfad sofort zurückgeben
+                if result:
+                    return result
 
-    # 6️⃣ Kein Pfad gefunden
-    return None
+    # 6️⃣ Rückgabe je nach Modus
+    return ergebnisse if alle else None
+

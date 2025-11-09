@@ -1,5 +1,56 @@
 [
   {
+  "id": "city_aarhus",
+  "type": "city",
+  "title": "Aarhus",
+  "text": "Aarhus ist die zweitgrößte Stadt Dänemarks und liegt an der Ostküste Jütlands. Sie verbindet studentisches Flair mit maritimer Atmosphäre und gilt als kulturelles Zentrum des Landes.",
+  "ort": "Aarhus",
+  "sehenswuerdigkeiten": [
+    "ARoS Kunstmuseum",
+    "Den Gamle By (Freilichtmuseum)",
+    "Dom zu Aarhus",
+    "Marselisborg Schlosspark"
+  ],
+  "image": "aarhus.jpg"
+  },
+  {
+    "id": "route_kopenhagen_aarhus",
+    "type": "route_detailed",
+    "title": "Kopenhagen – Aarhus, ca. 310 km",
+    "text": "Die Route führt Sie von der Hauptstadt über die E20 nach Sjællands Odde, dann mit der Fähre nach Aarhus. Unterwegs genießen Sie herrliche Ausblicke auf den Großen Belt und die dänische Ostseeküste.",
+    "start_ort": "Kopenhagen",
+    "ziel_ort": "Aarhus",
+    "varianten": [
+      {
+        "name": "Direkte Fährverbindung",
+        "beschreibung": "Über die Route 21 nach Sjællands Odde und mit der Fähre nach Aarhus.",
+        "zwischenstopps": [
+          {
+            "ort": "Sjællands Odde",
+            "highlight": "Fährhafen und Küstenlandschaft",
+            "details": "Hier startet die Fähre Molslinjen, die Sie in weniger als zwei Stunden nach Aarhus bringt."
+          }
+        ]
+      }
+    ],
+    "sehenswuerdigkeiten": [
+      "Große-Belt-Brücke",
+      "Fähre Molslinjen"
+    ],
+    "image": "aarhus_route.jpg"
+  },
+  {
+    "id": "route_aarhus_vemb",
+    "type": "route_simple",
+    "title": "Aarhus – Vemb, ca. 150 km",
+    "text": "Diese Strecke führt Sie quer durch Jütland – von der lebhaften Stadt Aarhus bis zur ruhigen Westküste nach Vemb. Eine entspannte Fahrt durch dänische Landschaft und kleine Dörfer.",
+    "start_ort": "Aarhus",
+    "ziel_ort": "Vemb",
+    "varianten": null,
+    "sehenswuerdigkeiten": ["Silkeborg Seen", "Herning Museum of Contemporary Art"],
+    "image": "aarhus_vemb.jpg"
+  },
+  {
   "id": "city_roskilde",
   "type": "city",
   "title": "Roskilde",

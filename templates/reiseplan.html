@@ -23,12 +23,10 @@
 
     <div class="card">
       <p><strong>Reiseverlauf:</strong> {{ " → ".join(route_chain) | title }}</p>
-      <p><strong>Reiseart:</strong> {{ reiseart | capitalize }}</p>
-      <p><strong>Dauer:</strong> {{ tage }} Tage</p>
     </div>
 
     {% if error %}
-      <p class="error">❌ {{ error }}</p>
+      <p class="error">❌ {{ error|safe }}</p>
     {% elif not plan %}
       <p>⚠️ Keine passenden Textbausteine für die Route
          <strong>{{ ' → '.join(route_chain) }}</strong> gefunden.</p>
