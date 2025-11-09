@@ -44,10 +44,7 @@
 
     <label for="ziel" class="mt-1">Ziel-Ort:</label>
     <select name="ziel" id="ziel">
-      <option value="" selected disabled>-- Ziel wählen --</option>
-      {% for ort in ziel_orte %}
-        <option value="{{ ort | lower }}">{{ ort }}</option>
-      {% endfor %}
+      <option value="" disabled selected>-- Bitte Start wählen --</option>
     </select>
 
     <label for="moegliche_routen" class="mt-2">Mögliche Routen:</label>
@@ -97,6 +94,48 @@
 
       startSelect.addEventListener("change", updateMoeglicheRouten);
       zielSelect.addEventListener("change", updateMoeglicheRouten);
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const startSelect = document.getElementById("start");
+      const zielSelect = document.getElementById("ziel");
+
+      async function updateZielOrte() {
+        const start = startSelect.value;
+        zielSelect.innerHTML = ""; // reset
+
+        if (!start) {
+          const opt = document.createElement("option");
+          opt.textContent = "-- Bitte Start wählen --";
+          opt.disabled = true;
+          opt.selected = true;
+          zielSelect.appendChild(opt);
+          return;
+        }
+
+        const res = await fetch(`/api/ziele?start=${start}`);
+        const ziele = await res.json();
+
+        if (ziele.length === 0) {
+          const opt = document.createElement("option");
+          opt.textContent = "Keine Ziele verfügbar";
+          opt.disabled = true;
+          opt.selected = true;
+          zielSelect.appendChild(opt);
+          return;
+        }
+
+        ziele.forEach(z => {
+          const opt = document.createElement("option");
+          opt.value = z.toLowerCase();
+          opt.textContent = z;
+          zielSelect.appendChild(opt);
+        });
+      }
+
+      // initial Zustand
+      updateZielOrte();
+      startSelect.addEventListener("change", updateZielOrte);
     });
     </script>
 {% endblock %}

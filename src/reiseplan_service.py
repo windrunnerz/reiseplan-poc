@@ -172,3 +172,11 @@ def finde_route_pfad(start, ziel, graph, pfad=None, alle=False) -> list | None:
     # 6️⃣ Rückgabe je nach Modus
     return ergebnisse if alle else None
 
+def finde_alle_erreichbaren_ziele(start, graph, besucht=None):
+    if besucht is None:
+        besucht = set()
+    besucht.add(start)
+    for nachbar in graph.get(start, []):
+        if nachbar not in besucht:
+            finde_alle_erreichbaren_ziele(nachbar, graph, besucht)
+    return besucht - {start}

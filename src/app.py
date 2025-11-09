@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-from src.reiseplan_service import lade_bausteine, erzeuge_reiseplan, build_graph, finde_route_pfad
+from src.reiseplan_service import lade_bausteine, erzeuge_reiseplan, build_graph, finde_route_pfad, finde_alle_erreichbaren_ziele
 from src.config import TEMPLATE_DIR, STATIC_DIR
 
 
@@ -22,6 +22,17 @@ def get_orte():
     stadt_orte = sorted({b["ort"] for b in cities})
 
     return start_orte, ziel_orte, stadt_orte
+
+@app.route("/api/ziele")
+def api_ziele():
+    start = request.args.get("start", "").lower()
+    bausteine = lade_bausteine()
+    graph = build_graph(bausteine)
+
+    ziele = finde_alle_erreichbaren_ziele(start, graph)
+    print(f"🔍 Mögliche Ziele von {start}: {ziele}")
+
+    return jsonify(sorted([z.title() for z in ziele]))
 
 @app.route("/api/moegliche_routen")
 def api_moegliche_routen():
@@ -107,22 +118,22 @@ def add_baustein():
 
 @app.route("/")
 def index():
-    start_orte, ziel_orte, stadt_orte = get_orte()
+    """
+    Startseite: zeigt die Eingabemaske zur Routenerstellung.
+    Start-Orte werden direkt übergeben, Ziel-Orte werden dynamisch per API geladen.
+    """
     bausteine = lade_bausteine()
     graph = build_graph(bausteine)
+
+    start_orte = sorted([s.title() for s in graph.keys()])
 
     demo_start = "Stege"
     demo_ziel = "Vemb"
     demo_pfad = finde_route_pfad(demo_start.lower(), demo_ziel.lower(), graph)
 
-    moegliche_stopps = demo_pfad[1:-1] if demo_pfad else []
-
     return render_template(
         "index.html",
         start_orte=start_orte,
-        ziel_orte=ziel_orte,
-        stadt_orte=stadt_orte,
-        moegliche_stopps=moegliche_stopps,
         demo_pfad=demo_pfad
     )
 
