@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from src.reiseplan_service import lade_bausteine, erzeuge_reiseplan, build_graph, finde_route_pfad, finde_alle_erreichbaren_ziele
-from src.config import TEMPLATE_DIR, STATIC_DIR
-
+from src.config import TEMPLATE_DIR, STATIC_DIR, DATA_FILE
+import json
 
 app = Flask(
     __name__,
@@ -104,15 +104,51 @@ def add_baustein():
         for key, value in form_data.items():
             print(f" - {key}: {value}")
 
+        try:
+            with open(DATA_FILE, "r", encoding="utf-8") as f:
+                bausteine = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            bausteine = []
+
+        # Neuer Eintrag basierend auf Typ
+        if form_data.get("type") == "city":
+            neuer_baustein = {
+                "id": f"city_{len(bausteine)+1}",
+                "type": "city",
+                "title": form_data.get("ort", "Unbenannter Ort"),
+                "text": form_data.get("text", ""),
+                "ort": form_data.get("ort"),
+                "image": form_data.get("image", None),
+                "sehenswuerdigkeiten": []
+            }
+        else:
+            neuer_baustein = {
+                "id": f"route_{len(bausteine)+1}",
+                "type": "route_simple",
+                "title": f"{form_data.get('start_ort','')} – {form_data.get('ziel_ort','')}",
+                "text": form_data.get("text", ""),
+                "start_ort": form_data.get("start_ort"),
+                "ziel_ort": form_data.get("ziel_ort"),
+                "image": None
+            }
+
+        bausteine.append(neuer_baustein)
+
+        with open(DATA_FILE, "w", encoding="utf-8") as f:
+            json.dump(bausteine, f, indent=2, ensure_ascii=False)
+
+        print(f"✅ Neuer Baustein gespeichert ({neuer_baustein['id']})")
         flash("✅ Neuer Baustein erfolgreich gespeichert.")
         return redirect(url_for("index"))
 
     # GET → Formular anzeigen
     start_orte, ziel_orte, stadt_orte = get_orte()
+
+    # Alle City-Orte für die Dropdowns anzeigen
     return render_template(
         "add_baustein.html",
-        start_orte=start_orte,
-        ziel_orte=ziel_orte,
+        start_orte=stadt_orte,
+        ziel_orte=stadt_orte,
         stadt_orte=stadt_orte
     )
 

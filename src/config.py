@@ -18,7 +18,7 @@ DEMO_FILE = DATA_DIR / "bausteine_demo.json"
 BAUSTEINE_FILE = os.getenv("BAUSTEINE_FILE", str(DEMO_FILE))
 
 # 📌 Vollständiger Pfad zur aktiven Datenquelle
-DATA_FILE = BASE_DIR / BAUSTEINE_FILE
+DATA_FILE = Path(BAUSTEINE_FILE)
 
 # Optional: Debug-Ausgabe bei Bedarf
 if __name__ == "__main__":

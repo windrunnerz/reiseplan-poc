@@ -11,8 +11,7 @@
         {% endfor %}
       </ol>
       <p style="margin-top: 1em; font-size: 0.9em;">
-        Diese Beispielroute zeigt, wie der automatische Reiseplan funktioniert.<br>
-        Wähle Start, Ziel und Zwischenstopps, um deine eigene Route zu erstellen.
+
       </p>
     </aside>
   </div>
@@ -103,6 +102,13 @@
       async function updateZielOrte() {
         const start = startSelect.value;
         zielSelect.innerHTML = ""; // reset
+
+        const defaultOption = document.createElement("option");
+        defaultOption.textContent = "-- Bitte Ziel wählen --"; // leerer Default
+        defaultOption.value = "";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        zielSelect.appendChild(defaultOption);
 
         if (!start) {
           const opt = document.createElement("option");
