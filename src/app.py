@@ -10,6 +10,15 @@ app = Flask(
 )
 app.secret_key = "supersecretkey"
 
+def get_demo_pfad():
+    """Erzeugt den Demo-Pfad für die Sidebar."""
+    bausteine = lade_bausteine()
+    graph = build_graph(bausteine)
+    demo_start = "Stege"
+    demo_ziel = "Vemb"
+    demo_pfad = finde_route_pfad(demo_start.lower(), demo_ziel.lower(), graph)
+    return demo_pfad
+
 def get_orte():
     """Lädt Bausteine und gibt Start-, Ziel- und City-Orte sortiert zurück."""
     bausteine = lade_bausteine()
@@ -149,7 +158,8 @@ def add_baustein():
         "add_baustein.html",
         start_orte=stadt_orte,
         ziel_orte=stadt_orte,
-        stadt_orte=stadt_orte
+        stadt_orte=stadt_orte,
+        demo_pfad=get_demo_pfad()
     )
 
 @app.route("/")
@@ -163,14 +173,10 @@ def index():
 
     start_orte = sorted([s.title() for s in graph.keys()])
 
-    demo_start = "Stege"
-    demo_ziel = "Vemb"
-    demo_pfad = finde_route_pfad(demo_start.lower(), demo_ziel.lower(), graph)
-
     return render_template(
         "index.html",
         start_orte=start_orte,
-        demo_pfad=demo_pfad
+        demo_pfad=get_demo_pfad()
     )
 
 if __name__ == "__main__":

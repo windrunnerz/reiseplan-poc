@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 {% block title %}Neuen Baustein hinzufügen{% endblock %}
 
+{% block sidebar %}
+  <div class="page-sidebar-wrapper">
+    <aside class="page-sidebar">
+      <h3>🧭 Beispielroute</h3>
+      <ol>
+        {% for ort in demo_pfad %}
+          <li>{{ ort | capitalize }}</li>
+        {% endfor %}
+      </ol>
+      <p style="margin-top: 1em; font-size: 0.9em;">
+
+      </p>
+    </aside>
+  </div>
+{% endblock %}
+
 {% block content %}
   <h2>➕ Neuen Baustein hinzufügen</h2>
 
@@ -19,7 +35,7 @@
     <div id="cityFields" class="form-section">
       <h3>🏙️ City-Baustein</h3>
       <label for="ort">Ort:</label>
-      <input type="text" id="ort" name="ort" required>
+      <input type="text" id="ort" name="ort">
 
       <label for="text">Beschreibung:</label>
       <textarea id="text" name="text" rows="3" placeholder="Beschreibung des Ortes..."></textarea>
