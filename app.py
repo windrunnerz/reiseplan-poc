@@ -107,6 +107,8 @@ def reiseplan():
 
 @app.route("/add_baustein", methods=["GET", "POST"])
 def add_baustein():
+    print("RAW POST:", dict(request.form))
+
     if request.method == "POST":
         form_data = request.form.to_dict()
         print("📨 Neues Formular erhalten:")
@@ -121,21 +123,23 @@ def add_baustein():
 
         # Neuer Eintrag basierend auf Typ
         if form_data.get("type") == "city":
+            print("city Baustein")
             neuer_baustein = {
                 "id": f"city_{len(bausteine)+1}",
                 "type": "city",
                 "title": form_data.get("ort", "Unbenannter Ort"),
-                "text": form_data.get("text", ""),
+                "text": form_data.get("city_text", ""),
                 "ort": form_data.get("ort"),
                 "image": form_data.get("image", None),
                 "sehenswuerdigkeiten": []
             }
         else:
+            print("route Baustein")
             neuer_baustein = {
                 "id": f"route_{len(bausteine)+1}",
                 "type": "route_simple",
                 "title": f"{form_data.get('start_ort','')} – {form_data.get('ziel_ort','')}",
-                "text": form_data.get("text", ""),
+                "text": form_data.get("route_text", ""),
                 "start_ort": form_data.get("start_ort"),
                 "ziel_ort": form_data.get("ziel_ort"),
                 "image": None

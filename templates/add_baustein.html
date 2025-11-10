@@ -38,7 +38,7 @@
       <input type="text" id="ort" name="ort">
 
       <label for="text">Beschreibung:</label>
-      <textarea id="text" name="text" rows="3" placeholder="Beschreibung des Ortes..."></textarea>
+      <textarea id="city_text" name="city_text" rows="3" placeholder="Beschreibung des Ortes..."></textarea>
 
       <label for="image">Bilddatei (Demnächst):</label>
       <input type="text" id="image" name="image" placeholder="roskilde.jpg">
@@ -62,7 +62,7 @@
       </select>
 
       <label for="route_text">Beschreibung:</label>
-      <textarea id="route_text" name="text" rows="3" placeholder="Beschreibung der Route..."></textarea>
+      <textarea id="route_text" name="route_text" rows="3" placeholder="Beschreibung der Route..."></textarea>
     </div>
 
     <div class="mt-2">
@@ -78,8 +78,9 @@
     const routeFields = document.getElementById('routeFields');
 
     radios.forEach(radio => {
-      radio.addEventListener('change', () => {
-        if (radio.value === 'city') {
+      radio.addEventListener('change', (event) => {
+        const selected = event.target.value;
+        if (selected === 'city') {
           cityFields.style.display = 'block';
           routeFields.style.display = 'none';
         } else {
