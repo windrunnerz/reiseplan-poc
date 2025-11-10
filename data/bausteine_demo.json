@@ -236,23 +236,5 @@
     ],
     "sehenswuerdigkeiten": null,
     "image": "oresund_bridge.jpg"
-  },
-  {
-    "id": "city_16",
-    "type": "city",
-    "title": "neuer ort",
-    "text": "1123",
-    "ort": "neuer ort",
-    "image": "",
-    "sehenswuerdigkeiten": []
-  },
-  {
-    "id": "route_17",
-    "type": "route_simple",
-    "title": "vemb – neuer ort",
-    "text": "",
-    "start_ort": "vemb",
-    "ziel_ort": "neuer ort",
-    "image": null
   }
 ]
