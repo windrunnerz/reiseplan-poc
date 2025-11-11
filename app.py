@@ -1,7 +1,11 @@
+"""
+API-Routen mit Präfix api_ -> JSON-Endpunkt, kein HTML-Render
+"""
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from src.reiseplan_service import lade_bausteine, erzeuge_reiseplan, build_graph, finde_route_pfad, finde_alle_erreichbaren_ziele
 from src.config import TEMPLATE_DIR, STATIC_DIR, DATA_FILE
 import json
+import shutil
 
 app = Flask(
     __name__,
@@ -31,6 +35,16 @@ def get_orte():
     stadt_orte = sorted({b["ort"] for b in cities})
 
     return start_orte, ziel_orte, stadt_orte
+
+@app.route("/api/reset", methods=["POST"])
+def api_reset():
+    try:
+        shutil.copyfile("data/bausteine.json", "data/bausteine_demo.json")
+        flash("Daten wurden auf den Ausgangszustand zurückgesetzt.", "success")
+    except Exception as e:
+        flash(f"Fehler beim Zurücksetzen: {str(e)}", "error")
+
+    return redirect(url_for("index"))
 
 @app.route("/api/ziele")
 def api_ziele():

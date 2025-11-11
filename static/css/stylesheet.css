@@ -307,3 +307,18 @@ img {
   }
 }
 
+/* Gruppierte Buttons (z. B. auf der Startseite) */
+.btn-group {
+  text-align: center;
+  margin-top: 1.5em;
+}
+
+.btn-form {
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+.btn-form:last-child {
+  margin-right: 0; /* kein Abstand hinter dem letzten Button */
+}
+
